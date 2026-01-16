@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>康宁疗养中心 - 专业心理健康护理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 添加细微的医疗背景纹理 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23007a7a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        /* 隐藏的秘密元素 - 视觉上隐藏但存在于DOM中 */
+        .secret {
+            position: absolute;
+            opacity: 0.01;
+            pointer-events: none;
+            font-size: 1px;
+            color: transparent;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 15px rgba(0, 122, 122, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 5%;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            color: #007a7a;
+            font-size: 28px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #007a7a;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo-subtitle {
+            font-size: 12px;
+            color: #5a8d8d;
+            margin-top: -3px;
+            letter-spacing: 1.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #007a7a;
+        }
+        
+        .nav-links a.active {
+            color: #007a7a;
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #007a7a;
+        }
+        
+        /* 英雄横幅区域 */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 122, 122, 0.1) 0%, rgba(0, 122, 122, 0) 70%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            color: #005555;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #007a7a;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 122, 122, 0.2);
+            border: 2px solid #007a7a;
+        }
+        
+        .cta-button:hover {
+            background-color: #005555;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 122, 122, 0.3);
+        }
+        
+        /* 主要内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: #005555;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #007a7a;
+        }
+        
+        /* 服务介绍 */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid #007a7a;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 36px;
+            color: #007a7a;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 22px;
+            color: #005555;
+            margin-bottom: 15px;
+        }
+        
+        /* 关于我们区域 */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 17px;
+            color: #555;
+        }
+        
+        /* 合作伙伴区域 */
+        .partners {
+            background-color: #f0f7f7;
+            padding: 80px 5%;
+            margin-top: 50px;
+        }
+        
+        .partner-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .partner-logo {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .partner-logo:hover {
+            transform: translateY(-5px);
+        }
+        
+        .partner-logo.special {
+            border: 1px solid #007a7a;
+            position: relative;
+        }
+        
+        .partner-logo.special::after {
+            content: "主要合作伙伴";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #007a7a;
+            color: white;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        
+        /* 联系信息区域 */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            background-color: #e6f3f3;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #007a7a;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #005555;
+            color: white;
+            padding: 60px 5% 30px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #5a8d8d;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #b8d6d6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b8d6d6;
+            font-size: 14px;
+        }
+        
+        /* 隐藏的线索区域 - 需要通过特定方式才能发现 */
+        .hidden-clue {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #007a7a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hidden-clue:hover {
+            background-color: #005555;
+            transform: scale(1.1);
+        }
+        
+        .clue-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .clue-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .services {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 代码注释中的隐藏线索 */
+        /* 
+        康宁疗养中心内部系统访问指南：
+        1. 员工请通过内网访问管理系统
+        2. 家属查询请使用患者ID后6位+出生年月日(YYMMDD)作为初始密码
+        3. 合作机构"嗣堂健康"请使用专属密钥访问
+        4. 遇到系统问题请联系技术部门分机号：7403
+        */
+        
+        /* 隐藏数据属性 */
+        [data-department="special"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 隐藏的秘密文本 - 用于游戏线索 -->
+    <div class="secret" id="hidden-code">嗣堂健康合作项目编号：ST-2023-07 | 特殊护理区访问代码：NV303</div>
+    <div class="secret" id="patient-code">患者转移协议关键词：家族能量平衡 | 治疗阶段：三期</div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <div>
+                    <div class="logo-text">康宁疗养中心</div>
+                    <div class="logo-subtitle">KANGNING SANATORIUM</div>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">首页</a>
+                <a href="#">关于我们</a>
+                <a href="#">专业服务</a>
+                <a href="#">疗养环境</a>
+                <a href="#">合作机构</a>
+                <a href="#">联系我们</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 英雄横幅 -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>专业心理健康护理与家庭支持</h1>
+            <p>康宁疗养中心致力于为需要特殊心理关怀的个人提供安全、专业的疗养环境。我们采用国际先进的综合疗法，结合本土化心理干预方案，帮助每一位来访者恢复内心平静，重建家庭和谐。</p>
+            <a href="#contact" class="cta-button">预约咨询参观</a>
+        </div>
+    </header>
+    
+    <!-- 服务介绍 -->
+    <section class="container">
+        <h2 class="section-title">我们的专业服务</h2>
+        <div class="services">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-user-friends"></i></div>
+                <h3>家庭系统治疗</h3>
+                <p>针对家庭动力失衡问题，通过专业干预修复成员关系，重建健康的家庭边界与角色分配，尤其擅长处理传统家庭观念与现代价值观冲突。</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-brain"></i></div>
+                <h3>认知行为重塑</h3>
+                <p>采用先进的CBT技术，帮助个体识别并改变负面思维模式与行为习惯，建立积极健康的心理应对机制，提升心理韧性。</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-home"></i></div>
+                <h3>长期疗养计划</h3>
+                <p>为需要长期心理支持的患者提供安全、舒适的居住环境，24小时专业护理，个性化康复方案，促进社会功能逐步恢复。</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 关于我们 -->
+    <section class="container">
+        <h2 class="section-title">关于康宁疗养中心</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="康宁疗养中心环境">
+            </div>
+            <div class="about-text">
+                <p>康宁疗养中心成立于2005年，是经卫生部门批准的专业心理健康护理机构。我们坐落于风景秀丽的青松山麓，占地面积超过20000平方米，拥有完善的疗养设施和专业的医疗团队。</p>
+                <p>中心秉承"尊重、专业、保密、实效"的服务理念，与多家国内外心理健康研究机构保持合作，不断更新治疗方法与技术。我们尤其关注家庭系统对个体心理健康的影响，开发了多套针对本土文化背景的心理干预方案。</p>
+                <p>我们的团队由资深心理医师、精神科护士、社会工作者和康复治疗师组成，为每位来访者提供全方位、个性化的关怀与支持。</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 合作伙伴 -->
+    <section class="partners">
+        <div class="container">
+            <h2 class="section-title">合作机构</h2>
+            <div class="partner-logos">
+                <div class="partner-logo">华东心理健康协会</div>
+                <div class="partner-logo">青松山医疗集团</div>
+                <div class="partner-logo special" id="site-clue">嗣堂健康管理</div>
+                <div class="partner-logo">国际家庭治疗学会</div>
+                <div class="partner-logo">安宁医疗基金会</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 联系信息 -->
+    <section class="container" id="contact">
+        <h2 class="section-title">联系我们</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                    <h3>中心地址</h3>
+                    <p>青松市翠湖区安宁路18号<br>邮编：200450</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                <div>
+                    <h3>联系电话</h3>
+                    <p>咨询热线：400-850-0740<br>行政办公室：0740-3882 105</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                    <h3>电子邮箱</h3>
+                    <p>咨询：counseling@kangning.com<br>合作：partnership@kangning.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>康宁疗养中心</h3>
+                <p>致力于提供专业、安全、保密的心理健康护理服务，帮助个体与家庭找回内心的平静与和谐。</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="#">隐私政策</a></li>
+                    <li><a href="#">服务条款</a></li>
+                    <li><a href="#">家属访问系统</a></li>
+                    <li><a href="#">员工入口</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>其他信息</h3>
+                <ul class="footer-links">
+                    <li><a href="#">招聘信息</a></li>
+                    <li><a href="#">学术研究</a></li>
+                    <li><a href="#">年度报告</a></li>
+                    <li><a href="#">紧急联系</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 康宁疗养中心 版权所有 | 许可证号：HL-2023-0740-PSY</p>
+            <p style="margin-top: 10px; font-size: 12px;">本网站内容仅供参考，具体服务以实际合同为准</p>
+        </div>
+    </footer>
+    
+    <!-- 隐藏的线索按钮 -->
+    <div class="hidden-clue" id="secretButton">
+        <i class="fas fa-question"></i>
+    </div>
+    
+    <!-- 线索模态框 -->
+    <div class="clue-modal" id="clueModal">
+        <div class="clue-content">
+            <div class="close-modal" id="closeModal">&times;</div>
+            <h3 style="color: #007a7a; margin-bottom: 20px;">系统访问提示</h3>
+            <p>欢迎访问康宁疗养中心信息系统。</p>
+            <p>如果您是患者家属，请使用患者ID后6位+出生年月日(YYMMDD)作为初始密码登录家属查询系统。</p>
+            <p>合作机构人员请使用专属密钥访问。</p>
+            <p>如需技术支持，请联系信息部分机：<strong>7403</strong></p>
+            <div style="margin-top: 20px; padding: 15px; background-color: #f0f7f7; border-left: 4px solid #007a7a; font-size: 14px;">
+                <p style="margin: 0;">注意：特殊护理区（NV区）访问需要额外授权。授权代码每月更新，请向行政办公室申请。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 隐藏线索交互功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const secretButton = document.getElementById('secretButton');
+            const clueModal = document.getElementById('clueModal');
+            const closeModal = document.getElementById('closeModal');
+            
+            // 点击隐藏按钮显示线索
+            secretButton.addEventListener('click', function() {
+                clueModal.style.display = 'flex';
+            });
+            
+            // 关闭模态框
+            closeModal.addEventListener('click', function() {
+                clueModal.style.display = 'none';
+            });
+            
+            // 点击模态框外部关闭
+            clueModal.addEventListener('click', function(e) {
+                if (e.target === clueModal) {
+                    clueModal.style.display = 'none';
+                }
+            });
+            
+            // "嗣堂健康管理"合作伙伴的特殊交互
+            const siteClue = document.getElementById('siteClue');
+            if (siteClue) {
+                siteClue.addEventListener('click', function() {
+                    alert('检测到合作机构访问尝试。请输入嗣堂健康专属密钥以继续...');
+                    // 这里可以扩展为实际的门户跳转或密码验证
+                });
+            }
+            
+            // 在控制台输出隐藏线索（玩家可以通过检查网页发现）
+            console.log("%c[康宁疗养中心系统日志]", "color: #007a7a; font-weight: bold;");
+            console.log("系统状态：正常运行");
+            console.log("最后维护：2023-10-15");
+            console.log("特殊护理区状态：NV303 已启用");
+            console.log("合作机构访问：嗣堂健康 - 密钥验证通过");
+            console.log("------------------------------");
+            console.log("%c提示：家属查询系统入口在页面底部'快速链接'区域", "color: #888; font-style: italic;");
+        });
+        
+        // 鼠标移动时随机显示隐藏文本（极低概率）
+        document.addEventListener('mousemove', function(e) {
+            // 只有0.1%的概率触发
+            if (Math.random() < 0.001) {
+                const hiddenTexts = [
+                    "家族能量需要平衡",
+                    "特殊护理区访问受限",
+                    "嗣堂健康项目进行中",
+                    "患者转移协议已启动"
+                ];
+                const randomText = hiddenTexts[Math.floor(Math.random() * hiddenTexts.length)];
+                
+                // 创建临时浮动文本
+                const floatText = document.createElement('div');
+                floatText.textContent = randomText;
+                floatText.style.position = 'fixed';
+                floatText.style.top = e.clientY + 'px';
+                floatText.style.left = e.clientX + 'px';
+                floatText.style.backgroundColor = 'rgba(0, 122, 122, 0.9)';
+                floatText.style.color = 'white';
+                floatText.style.padding = '5px 10px';
+                floatText.style.borderRadius = '3px';
+                floatText.style.fontSize = '12px';
+                floatText.style.zIndex = '10001';
+                floatText.style.pointerEvents = 'none';
+                floatText.style.whiteSpace = 'nowrap';
+                floatText.style.animation = 'fadeOut 2s forwards';
+                
+                // 添加淡出动画
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeOut {
+                        0% { opacity: 1; transform: translateY(0); }
+                        100% { opacity: 0; transform: translateY(-20px); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.body.appendChild(floatText);
+                
+                // 2秒后移除
+                setTimeout(() => {
+                    if (floatText.parentNode) {
+                        floatText.parentNode.removeChild(floatText);
+                    }
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
